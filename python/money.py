@@ -3,6 +3,9 @@ class Money:
         self.amount = amount
         self.currency = currency
 
+    def __str__(self) -> str:
+        return f"{self.currency} {self.amount:0.2f}"
+
     def times(self, multiplier):
         return Money(self.amount * multiplier, self.currency)
 
