@@ -12,14 +12,6 @@ class Portfolio:
     def add(self, *moneys):
         self.moneys.extend(moneys)
 
-    def __convert(self, aMoney, aCurrency):
-        exchange_rates = {'EUR->USD': 1.2, 'USD->KRW': 1100}
-        if aMoney.currency == aCurrency:
-            return aMoney.amount
-        else:
-            key = aMoney.currency + '->' + aCurrency
-            return aMoney.amount * exchange_rates[key]
-
     def evaluate(self, bank, currency):
         total = 0.0
         failures = []
