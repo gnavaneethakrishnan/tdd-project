@@ -20,5 +20,5 @@ jobs:
               with:
                 path: tdd-project
             - name: Test
-              run: python py/test_money.py -v2
+              run: python tdd-project/py/test_money.py -v2
               shell: bash
