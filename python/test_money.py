@@ -64,11 +64,18 @@ class TestMoney(unittest.TestCase):
         with self.assertRaisesRegex(Exception, r"Missing exchange rates\(s\):\[USD->Kalangid,EUR->Kalangid,KRW->Kalangid\]"):
             portfolio.evaluate(self.bank, "Kalangid")
 
-    def test_conversion(self):
+    def test_conversion_with_different_rates_between_currencies(self):
         bank = Bank()
         bank.add_exchange_rate("EUR", "USD", 1.2)
         ten_euros = Money(10, "EUR")
         self.assertEqual(bank.convert(ten_euros, "USD"), Money(12, "USD"))
+
+        self.bank.add_exchange_rate("EUR", "USD", 1.3)
+        self.assertEqual(self.bank.convert(ten_euros, "USD"), Money(13, "USD"))
+
+
+
+
 
     def test_converstion_with_missing_exchange_rate(self):
         bank = Bank()
