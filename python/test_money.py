@@ -75,8 +75,6 @@ class TestMoney(unittest.TestCase):
 
 
 
-
-
     def test_converstion_with_missing_exchange_rate(self):
         bank = Bank()
         ten_euros = Money(10, "EUR")
