@@ -5,13 +5,12 @@ from bank import Bank
 
 
 class TestMoney(unittest.TestCase):
-    
+
     def setUp(self):
         self.bank = Bank()
         self.bank.add_exchange_rate("EUR", "USD", 1.2)
         self.bank.add_exchange_rate("USD", "KRW", 1100)
 
-    
     def test_multiplication_in_dolloars(self):
         five_dollars = Money(5, 'USD')
         ten_dollars = five_dollars.times(2)
@@ -33,7 +32,8 @@ class TestMoney(unittest.TestCase):
         fifteeen_dollars = Money(15, "USD")
         portfolio = Portfolio()
         portfolio.add(five_dollars, ten_dollars)
-        self.assertEqual(fifteeen_dollars, portfolio.evaluate(self.bank, "USD"))
+        self.assertEqual(fifteeen_dollars,
+                         portfolio.evaluate(self.bank, "USD"))
 
     def test_addition_dollars_to_euros(self):
         five_dollars = Money(5, "USD")
@@ -73,13 +73,18 @@ class TestMoney(unittest.TestCase):
         self.bank.add_exchange_rate("EUR", "USD", 1.3)
         self.assertEqual(self.bank.convert(ten_euros, "USD"), Money(13, "USD"))
 
-
-
     def test_converstion_with_missing_exchange_rate(self):
         bank = Bank()
         ten_euros = Money(10, "EUR")
         with self.assertRaisesRegex(Exception, "EUR->Kalangid"):
             bank.convert(ten_euros, "Kalangid")
+
+    def test_add_money_directly(self):
+        self.assertEqual(Money(15, "USD"), Money(5, "USD") + Money(10, "USD"))
+        self.assertEqual(Money(15, "USD"), Money(10, "USD") + Money(5, "USD"))
+        self.assertEqual(None, Money(5, "USD") + Money(10, "EUR"))
+        self.assertEqual(None, Money(5, "USD") + None)
+
 
 if __name__ == "__main__":
     unittest.main()

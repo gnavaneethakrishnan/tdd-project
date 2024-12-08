@@ -11,7 +11,7 @@ class Portfolio:
 
     def add(self, *moneys):
         self.moneys.extend(moneys)
-        
+
 
     def evaluate(self, bank, currency):
         total = 0.0
@@ -22,7 +22,7 @@ class Portfolio:
             except Exception as ex:
                 failures.append(ex)
 
-        if len(failures) == 0:
+        if not failures:
             return Money(total, currency)
         failure_message = ",".join(f.args[0] for f in failures)
         raise Exception(f"Missing exchange rates(s):[{failure_message}]")
