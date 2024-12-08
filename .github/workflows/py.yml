@@ -17,6 +17,8 @@ jobs:
                   python-version: ${{matrix.python-version}}
             - name: Checkout code
               uses: actions/Checkout@v2
+              with:
+                path: tdd-project
             - name: Test
               run: python py/test_money.py -v2
               shell: bash
